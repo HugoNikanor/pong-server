@@ -13,6 +13,11 @@ public class StaticSessions {
 		sessions.add( session );
 	}
 
+	public static void remove( Session session ) {
+		initiateList();
+		sessions.remove( session );
+	}
+
 	public static List<Session> getSessions() {
 		initiateList();
 		return sessions;

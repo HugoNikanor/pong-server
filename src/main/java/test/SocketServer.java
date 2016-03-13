@@ -34,6 +34,11 @@ public class SocketServer {
 		return "<Server> Default response ";
 		*/
 		for( Session s : StaticSessions.getSessions() ) {
+			if( !s.isOpen() ) {
+				StaticSessions.remove( s );
+				continue;
+			}
+
 			System.out.println( "client" );
 			try {
 				s.getBasicRemote().sendText( message );
