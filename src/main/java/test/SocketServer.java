@@ -1,6 +1,6 @@
 package test;
 
-import java.io.IOException;
+//import java.io.IOException;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -8,7 +8,10 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/test")
+@ServerEndpoint(
+	value    = "/rectangle",
+	decoders = {MyDecoder.class}
+)
 public class SocketServer {
 
 	public SocketServer() { }
@@ -26,30 +29,28 @@ public class SocketServer {
 	}
 
 	@OnMessage
-	public void onMessage( String message ) {
+	public void onMessage( String message, Coordinates cord ) {
+		System.out.println( "Message recived" );
 		/*
-		if( message.equals( "Can I have a response?" ) ) {
-			return "<Server> No";
-		}
-		return "<Server> Default response ";
-		*/
 		for( Session s : StaticSessions.getSessions() ) {
 			if( !s.isOpen() ) {
 				StaticSessions.remove( s );
 				continue;
 			}
 
-			System.out.println( "client" );
+			/*
 			try {
 				s.getBasicRemote().sendText( message );
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		System.out.println(
-		"————————————————————————————————————————————————————————————————————————————————"
-		);
+			*/
+		//}
+
+
+
+		System.out.println( cord.getX() );
 	}
 
 }
