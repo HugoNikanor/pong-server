@@ -1,4 +1,4 @@
-package pongServer;
+package serverEndpoint;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

@@ -1,0 +1,7 @@
+{
+	"type": "paddle-create",
+	"data": {
+		"x": 5,
+		"y": 6
+	}
+}
