@@ -23,6 +23,7 @@ public class PaddlePool {
 		paddles.put( paddle.getId(), paddle );
 	}
 
+
 	private void setUpMap() {
 		if( paddles == null ) {
 			paddles = new HashMap<String, Paddle>();

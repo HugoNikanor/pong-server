@@ -7,24 +7,29 @@ import javax.websocket.EndpointConfig;
 import org.json.JSONObject;
 
 import pong.Paddle;
+import pong.PaddleMove;
 import pong.PaddlePool;
 
-public class PaddleMoveDecoder implements Decoder.Text<Paddle> {
+public class PaddleMoveDecoder implements Decoder.Text<PaddleMove> {
 
 	@Override
 	public void init(EndpointConfig config) {
 		// TODO Auto-generated method stub
+		System.out.println( "paddle-move decoder init" );
 
 	}
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
+		System.out.println( "paddle-move decoder destroy" );
 
 	}
 
 	@Override
-	public Paddle decode(String s) throws DecodeException {
+	public PaddleMove decode(String s) throws DecodeException {
+		System.out.println( s );
+
 		JSONObject obj = new JSONObject( s );
 		JSONObject jsonPaddle = obj.getJSONObject("data");
 		Paddle paddle = new PaddlePool().get( jsonPaddle.getString("id") );
@@ -32,11 +37,12 @@ public class PaddleMoveDecoder implements Decoder.Text<Paddle> {
 		paddle.setxPos( jsonPaddle.getDouble("x") );
 		paddle.setyPos( jsonPaddle.getDouble("y") );
 
-		return paddle;
+		return new PaddleMove(paddle);
 	}
 
 	@Override
 	public boolean willDecode(String s) {
+		System.out.println( "paddle-move-decoder accessed" );
 		JSONObject obj = new JSONObject( s );
 		return obj.getString("type").equals("paddle-move")
 			? true

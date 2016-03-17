@@ -34,40 +34,40 @@ public class SocketServer {
 
 	@OnOpen
 	public void open(Session session) throws IOException, EncodeException {
-		System.out.println("socket connected");
-		new ClientPool().add( session );
+		System.out.println("session initiated: " + session.getId());
+
+		ClientPool cp = new ClientPool();
+		cp.add( session );
 
 		Paddle paddle = new Paddle(session.getId());
 		new PaddlePool().add( paddle );
 
-		/*
-		session.getBasicRemote().
-			sendObject(
-			   	paddle );
-		*/
+		cp.sendToAll( paddle );
 
-		// TODO these be errors
-
-		session.getAsyncRemote().sendText( paddle.toString() );
-
-		//session.getAsyncRemote().sendText( "{\"message\": \"Test message\"}" );
 	}
 
 	@OnClose
 	public void close(Session session) {
 		new ClientPool().remove( session );
-		System.out.println("socket disconnected");
+		PaddlePool pp = new PaddlePool();
+		pp.remove( pp.get( session.getId() ) );
+
+		System.out.println("session closed: " + session.getId());
 	}
 
 	@OnMessage
-	public void paddleMove(Paddle p) throws IOException, EncodeException {
-		new ClientPool().sendToAll( new PaddleMove(p) );
-	}	
+	public void paddleMove(PaddleMove p, Session session) throws IOException, EncodeException {
 
+		Paddle paddle = p.getPaddle();
+		new PaddlePool().add( paddle );
+		new ClientPool().sendToAll( p );
+	}
+
+	/*
 	@OnMessage
 	public void onMessage( String s ) {
 		System.out.println( "Don't know what to do with data" );
 		System.out.println( s );
 	}
-
+	*/
 }

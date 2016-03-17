@@ -29,7 +29,12 @@ public class ClientPool {
 	 */
 	public void sendToAll(Object message) throws IOException, EncodeException {
 		for( String str : sessions.keySet() ) {
-			sessions.get( str ).getBasicRemote().sendObject( message );
+			Session session = sessions.get(str);
+			if( !session.isOpen() ) {
+				sessions.remove( session );
+			} else {
+				sessions.get( str ).getBasicRemote().sendObject( message );
+			}
 		}
 	}
 
