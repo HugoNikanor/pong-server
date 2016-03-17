@@ -1,4 +1,4 @@
-package serverEndpoint;
+package ga.hugoweb.pong.serverEndpoint;
 
 import java.io.IOException;
 
@@ -11,14 +11,12 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.json.JSONObject;
 
-import decoders.PaddleMoveDecoder;
-
-import encoders.PaddleCreateEncoder;
-import encoders.PaddleMoveEncoder;
-
-import pong.Paddle;
-import pong.PaddleMove;
-import pong.PaddlePool;
+import ga.hugoweb.pong.decoders.PaddleMoveDecoder;
+import ga.hugoweb.pong.encoders.PaddleCreateEncoder;
+import ga.hugoweb.pong.encoders.PaddleMoveEncoder;
+import ga.hugoweb.pong.game.Paddle;
+import ga.hugoweb.pong.game.PaddleMove;
+import ga.hugoweb.pong.game.PaddlePool;
 
 @ServerEndpoint(
 	value    = "/rectangle",

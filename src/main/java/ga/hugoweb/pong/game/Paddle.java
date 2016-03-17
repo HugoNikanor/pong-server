@@ -1,4 +1,4 @@
-package pong;
+package ga.hugoweb.pong.game;
 
 import org.json.JSONObject;
 

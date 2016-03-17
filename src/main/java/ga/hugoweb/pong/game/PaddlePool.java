@@ -1,4 +1,4 @@
-package pong;
+package ga.hugoweb.pong.game;
 
 import java.util.HashMap;
 import java.util.Map;

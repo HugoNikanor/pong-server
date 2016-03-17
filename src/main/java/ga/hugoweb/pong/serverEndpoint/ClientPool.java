@@ -1,4 +1,4 @@
-package serverEndpoint;
+package ga.hugoweb.pong.serverEndpoint;
 
 import java.io.IOException;
 import java.util.HashMap;

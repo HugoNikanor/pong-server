@@ -1,4 +1,4 @@
-package encoders;
+package ga.hugoweb.pong.encoders;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
@@ -6,7 +6,7 @@ import javax.websocket.EndpointConfig;
 
 import org.json.JSONObject;
 
-import pong.Paddle;
+import ga.hugoweb.pong.game.Paddle;
 
 public class PaddleCreateEncoder implements Encoder.Text<Paddle> {
 

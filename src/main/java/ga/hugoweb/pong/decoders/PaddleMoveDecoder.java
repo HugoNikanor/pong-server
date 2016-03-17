@@ -1,4 +1,4 @@
-package decoders;
+package ga.hugoweb.pong.decoders;
 
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
@@ -6,9 +6,9 @@ import javax.websocket.EndpointConfig;
 
 import org.json.JSONObject;
 
-import pong.Paddle;
-import pong.PaddleMove;
-import pong.PaddlePool;
+import ga.hugoweb.pong.game.Paddle;
+import ga.hugoweb.pong.game.PaddleMove;
+import ga.hugoweb.pong.game.PaddlePool;
 
 public class PaddleMoveDecoder implements Decoder.Text<PaddleMove> {
 
