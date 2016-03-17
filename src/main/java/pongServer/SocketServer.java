@@ -1,4 +1,4 @@
-package test;
+package pongServer;
 
 //import java.io.IOException;
 
@@ -29,8 +29,7 @@ public class SocketServer {
 	}
 
 	@OnMessage
-	public void onMessage( String message, Coordinates cord ) {
-		System.out.println( "Message recived" );
+	public void onMessage( Coordinates cord ) {
 		/*
 		for( Session s : StaticSessions.getSessions() ) {
 			if( !s.isOpen() ) {
