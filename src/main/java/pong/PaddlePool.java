@@ -2,6 +2,7 @@ package pong;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class PaddlePool {
 	private static Map<String, Paddle> paddles;
@@ -21,8 +22,12 @@ public class PaddlePool {
 
 	public void add( Paddle paddle ) {
 		paddles.put( paddle.getId(), paddle );
+
 	}
 
+	public Set<String> getKeys() {
+		return paddles.keySet();
+	}
 
 	private void setUpMap() {
 		if( paddles == null ) {

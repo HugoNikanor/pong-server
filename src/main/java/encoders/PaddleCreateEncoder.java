@@ -24,17 +24,9 @@ public class PaddleCreateEncoder implements Encoder.Text<Paddle> {
 
 	@Override
 	public String encode(Paddle paddle) throws EncodeException {
-		JSONObject jsonPaddle = new JSONObject();
-		jsonPaddle.put("x", paddle.getxPos());
-		jsonPaddle.put("y", paddle.getyPos());
-		jsonPaddle.put("width", paddle.getWidth());
-		jsonPaddle.put("height", paddle.getHeight());
-		jsonPaddle.put("color", paddle.getColor());
-		jsonPaddle.put("id",paddle.getId());
-
 		JSONObject obj = new JSONObject();
 		obj.put("type", "paddle-create");
-		obj.put("data", jsonPaddle );
+		obj.put("data", paddle.getJSONObject() );
 
 		return obj.toString();
 	}

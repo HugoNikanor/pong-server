@@ -9,6 +9,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.json.JSONObject;
+
 import decoders.PaddleMoveDecoder;
 
 import encoders.PaddleCreateEncoder;
@@ -36,13 +38,23 @@ public class SocketServer {
 	public void open(Session session) throws IOException, EncodeException {
 		System.out.println("session initiated: " + session.getId());
 
+		JSONObject obj = new JSONObject();
+		obj.put("type", "own-identifier");
+		obj.put("data", session.getId());
+		session.getAsyncRemote().sendText( obj.toString() );
+
 		ClientPool cp = new ClientPool();
 		cp.add( session );
 
 		Paddle paddle = new Paddle(session.getId());
-		new PaddlePool().add( paddle );
+		PaddlePool pp = new PaddlePool();
+		pp.add( paddle );
+		
+		// send data that this is the paddle to control
 
-		cp.sendToAll( paddle );
+		for( String s : pp.getKeys() ) {
+			cp.sendToAll( pp.get(s) );
+		}
 
 	}
 

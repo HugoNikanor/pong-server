@@ -24,7 +24,6 @@ public class Paddle {
 		this.id = id;
 	}
 
-
 	/**
 	 * @return the xPos
 	 */
