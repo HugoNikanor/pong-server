@@ -1,5 +1,7 @@
 package ga.hugoweb.pong.game;
 
+import java.util.Random;
+
 import org.json.JSONObject;
 
 public class Paddle {
@@ -19,9 +21,22 @@ public class Paddle {
 		this.width = 10;
 		this.height = 30; 
 
-		this.color = "#0000FF";
+		this.color = this.createColor();
 
 		this.id = id;
+
+		System.out.println( this.color );
+
+	}
+
+
+	private String createColor() {
+		Random colorRand = new Random();
+		String colorString = "#";
+		for( int i = 0; i < 3; i++ )
+			colorString = colorString.concat( String.format("%02X", colorRand.nextInt(256)) );
+
+		return colorString;
 	}
 
 	/**
