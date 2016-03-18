@@ -12,6 +12,7 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONObject;
 
 import ga.hugoweb.pong.decoders.PaddleMoveDecoder;
+import ga.hugoweb.pong.encoders.JSONObjectEncoder;
 import ga.hugoweb.pong.encoders.PaddleCreateEncoder;
 import ga.hugoweb.pong.encoders.PaddleMoveEncoder;
 import ga.hugoweb.pong.game.Paddle;
@@ -26,6 +27,7 @@ import ga.hugoweb.pong.game.PaddlePool;
 	encoders = {
 		PaddleMoveEncoder.class,
 		PaddleCreateEncoder.class,
+		JSONObjectEncoder.class,
 	}
 )
 public class SocketServer {
@@ -34,7 +36,6 @@ public class SocketServer {
 
 	@OnOpen
 	public void open(Session session) throws IOException, EncodeException {
-		System.out.println("session initiated: " + session.getId());
 
 		JSONObject obj = new JSONObject();
 		obj.put("type", "own-identifier");
@@ -54,15 +55,24 @@ public class SocketServer {
 			cp.sendToAll( pp.get(s) );
 		}
 
+		System.out.println("session INITIATED [" + session.getId() + "]");
 	}
 
 	@OnClose
-	public void close(Session session) {
-		new ClientPool().remove( session );
+	public void close(Session session) throws IOException, EncodeException {
+		ClientPool cp = new ClientPool();
+		cp.remove( session );
+
 		PaddlePool pp = new PaddlePool();
 		pp.remove( session.getId() );
 
-		System.out.println("session closed: " + session.getId());
+		JSONObject jobj = new JSONObject();
+		jobj.put("type", "client-disconnect");
+		jobj.put("data", session.getId());
+		System.out.println( jobj );
+		cp.sendToAll( jobj );
+
+		System.out.println("session CLOSED [" + session.getId() + "]");
 	}
 
 	@OnMessage

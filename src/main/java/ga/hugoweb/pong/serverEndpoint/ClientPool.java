@@ -20,7 +20,7 @@ public class ClientPool {
 	}
 
 	public void remove( Session session ) {
-		sessions.remove( session );
+		sessions.remove( session.getId() );
 	}
 
 	/**

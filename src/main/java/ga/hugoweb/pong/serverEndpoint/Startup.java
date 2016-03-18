@@ -9,7 +9,8 @@ public class Startup implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		System.out.println("initialized");
+		//System.out.println("initialized");
+		System.out.println( servletContext.toString() );
 	}
 }
 
