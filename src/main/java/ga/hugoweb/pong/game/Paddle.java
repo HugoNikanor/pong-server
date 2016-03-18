@@ -10,7 +10,7 @@ public class Paddle {
 	private float width;
 	private float height;
 
-	private String id;
+	private final String id;
 
 	private String color;
 
@@ -75,10 +75,24 @@ public class Paddle {
 	}
 
 	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	/**
 	 * @return the height
 	 */
 	public float getHeight() {
 		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(float height) {
+		this.height = height;
 	}
 
 	/**
@@ -89,17 +103,17 @@ public class Paddle {
 	}
 
 	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return the color
 	 */
 	public String getColor() {
 		return color;
+	}
+
+	/**
+	 * @param color the color to set
+	 */
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public JSONObject getJSONObject() {

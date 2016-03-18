@@ -11,6 +11,10 @@ public class PaddlePool {
 		setUpMap();
 	}
 
+	public int getSize() {
+		return paddles.size();
+	}
+
 	public Paddle get( String id ) {
 		setUpMap();
 		return paddles.get( id );

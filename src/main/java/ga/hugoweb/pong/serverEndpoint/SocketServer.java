@@ -15,6 +15,7 @@ import ga.hugoweb.pong.decoders.PaddleMoveDecoder;
 import ga.hugoweb.pong.encoders.JSONObjectEncoder;
 import ga.hugoweb.pong.encoders.PaddleCreateEncoder;
 import ga.hugoweb.pong.encoders.PaddleMoveEncoder;
+import ga.hugoweb.pong.game.BallStuff;
 import ga.hugoweb.pong.game.Paddle;
 import ga.hugoweb.pong.game.PaddleMove;
 import ga.hugoweb.pong.game.PaddlePool;
@@ -32,8 +33,6 @@ import ga.hugoweb.pong.game.PaddlePool;
 )
 public class SocketServer {
 
-	public SocketServer() { }
-
 	@OnOpen
 	public void open(Session session) throws IOException, EncodeException {
 
@@ -47,9 +46,15 @@ public class SocketServer {
 
 		Paddle paddle = new Paddle(session.getId());
 		PaddlePool pp = new PaddlePool();
+
+		System.out.println( String.format("%d items in the paddle pool", pp.getSize()));
+		if( pp.getSize() == 0 ) {
+			BallStuff bs = new BallStuff();
+			cp.sendToAll( bs.getBall() );
+			pp.put( bs.getBall() );
+		}
+
 		pp.put( paddle );
-		
-		// send data that this is the paddle to control
 
 		for( String s : pp.getKeys() ) {
 			cp.sendToAll( pp.get(s) );
