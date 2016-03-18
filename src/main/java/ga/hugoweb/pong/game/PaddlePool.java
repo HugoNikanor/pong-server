@@ -16,11 +16,11 @@ public class PaddlePool {
 		return paddles.get( id );
 	}
 
-	public void remove( Paddle paddle ) {
-		paddles.remove( paddle );
+	public void remove( String id ) {
+		paddles.remove( id );
 	}
 
-	public void add( Paddle paddle ) {
+	public void put( Paddle paddle ) {
 		paddles.put( paddle.getId(), paddle );
 
 	}

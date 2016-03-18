@@ -46,7 +46,7 @@ public class SocketServer {
 
 		Paddle paddle = new Paddle(session.getId());
 		PaddlePool pp = new PaddlePool();
-		pp.add( paddle );
+		pp.put( paddle );
 		
 		// send data that this is the paddle to control
 
@@ -60,7 +60,7 @@ public class SocketServer {
 	public void close(Session session) {
 		new ClientPool().remove( session );
 		PaddlePool pp = new PaddlePool();
-		pp.remove( pp.get( session.getId() ) );
+		pp.remove( session.getId() );
 
 		System.out.println("session closed: " + session.getId());
 	}
@@ -69,7 +69,7 @@ public class SocketServer {
 	public void paddleMove(PaddleMove p, Session session) throws IOException, EncodeException {
 
 		Paddle paddle = p.getPaddle();
-		new PaddlePool().add( paddle );
+		new PaddlePool().put( paddle );
 		new ClientPool().sendToAll( p );
 	}
 
